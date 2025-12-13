@@ -5,16 +5,19 @@
 local keymap = vim.keymap.set
 
 local opts = {
-    noremap = true, silent = true }
+  noremap = true,
+  silent = true,
+}
 local no_silent = {
-    noremap = true, silent = false }
+  noremap = true,
+  silent = false,
+}
 local opts_desc = function(desc, base_opts)
-    base_opts = base_opts or opts
-    return vim.tbl_extend('force', base_opts, {
-        desc = desc or '',
-    })
+  base_opts = base_opts or opts
+  return vim.tbl_extend('force', base_opts, {
+    desc = desc or '',
+  })
 end
-
 
 ----------- Buffer movement
 -- In Vim, `C-b` and `C-f` scroll by a full page, while `C-u` and `C-d` scroll by half a page.
@@ -22,7 +25,7 @@ end
 keymap('n', '<C-f>', '<C-d>', {})
 keymap('n', '<C-b>', '<C-u>', {})
 
-keymap('n', ']b', [[:bnext<cr>]], opts_desc'next buffer')
+keymap('n', ']b', [[:bnext<cr>]], opts_desc 'next buffer')
 keymap('n', '[b', [[:bprevious<cr>]], opts_desc 'previous buffer')
 keymap('n', ']q', [[:cnext<cr>]], opts_desc 'next quicklist entry')
 keymap('n', '[q', [[:cprevious<cr>]], opts_desc 'previous quicklist entry')
@@ -54,7 +57,7 @@ keymap('n', '<Esc>', '<cmd>nohlsearch<CR>', opts_desc 'clear search highlight')
 keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 keymap('n', '<Leader>cd.', [[:cd %:h|pwd<cr>]], opts_desc("change CWD to current file's directory", no_silent))
-keymap('n', '<Leader>cd..', [[:cd ..|pwd<cr>]], opts_desc("change CWD to parent directory of current file", no_silent))
+keymap('n', '<Leader>cd..', [[:cd ..|pwd<cr>]], opts_desc('change CWD to parent directory of current file', no_silent))
 
 -- Keybinds to make split navigation easier. (Use CTRL+<hjkl> to switch between windows)
 keymap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -115,7 +118,6 @@ keymap('i', '<C-p>', [[pumvisible() ? '<C-p>' : '<up>']], {
   expr = true,
 })
 
-
 ----------- Disable stuff
 -- <C-g> by default echos the current file name, which is useless. Disable it
 keymap('n', '<C-g>', '<ESC>', {})
@@ -123,9 +125,13 @@ keymap('n', '<C-g>', '<ESC>', {})
 -- middle mouse button
 keymap('', [[<MiddleMouse>]], [[<nop>]], {})
 
-
 --
 local jk_as_esc_f = function()
+  -- Don't set up jk escape if completion menu is visible
+  if vim.fn.pumvisible() == 1 then
+    return 'j'
+  end
+
   keymap('t', 'k', [[]], {
     noremap = true,
     expr = true,
@@ -143,7 +149,7 @@ local jk_as_esc_f = function()
   vim.defer_fn(function()
     pcall(vim.keymap.del, 't', 'k')
     pcall(vim.keymap.del, 'i', 'k')
-  end, 100)
+  end, 250)
   return 'j'
 end
 
@@ -159,7 +165,6 @@ keymap('v', 'j', '', jk_as_esc)
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local command = vim.api.nvim_create_user_command
 
 local my_augroup = augroup('MyAugroup', {})
 
@@ -170,5 +175,3 @@ autocmd('TextYankPost', {
   end,
   desc = 'highlight yanked text',
 })
-
-return M
