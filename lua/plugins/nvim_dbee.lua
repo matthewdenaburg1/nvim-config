@@ -1,0 +1,31 @@
+-- local creds = function()
+--   local root = 'op://Employee/Database Account/'
+--   local p = root .. 'password'
+--
+--   local un = vim.fn.system "command op read 'op://Employee/Database Account/username'"
+--   -- local un = vim.fn.system "command op read 'op://Employee/Database Account/password'"
+--   print(un)
+-- end
+
+-- return {
+--   'kndndrj/nvim-dbee',
+--   dependencies = {
+--     'MunifTanjim/nui.nvim',
+--   },
+--   build = function()
+--     -- Install tries to automatically detect the install method.
+--     -- if it fails, try calling it with one of these parameters:
+--     --    "curl", "wget", "bitsadmin", "go"
+--     require('dbee').install()
+--   end,
+--   -- ft = { 'sql' },
+--   config = function()
+--     require('dbee').setup {
+--       sources = {
+--         require('dbee.sources').MemorySource(creds()),
+--       },
+--     }
+--   end,
+-- }
+
+return {}

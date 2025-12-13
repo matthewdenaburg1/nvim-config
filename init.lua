@@ -16,3 +16,6 @@ vim.loader.enable()
 
 require 'settings'
 require 'keymap'
+require 'plugin_manager'
+require 'api'
+
