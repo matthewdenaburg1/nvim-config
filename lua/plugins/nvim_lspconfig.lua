@@ -1,4 +1,6 @@
-return { -- Main LSP Configuration
+-- LSP
+
+return {
   'neovim/nvim-lspconfig',
 
   dependencies = {
@@ -59,6 +61,11 @@ return { -- Main LSP Configuration
 
       -- Shell scripting
       bashls = {
+        settings = {
+          bashIde = {
+            shellcheckArguments = '--shell=bash',
+          },
+        },
         filetypes = { 'sh', 'zsh', 'bash' },
       },
 
