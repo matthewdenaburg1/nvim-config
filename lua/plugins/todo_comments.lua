@@ -50,10 +50,10 @@ return {
       },
       highlight = {
         keyword = 'bg',
-        pattern = [[^\s*(--\s*\@?(KEYWORDS)(\s|:))]], -- vim regex
+        pattern = [[\s*(--\s*\@?(KEYWORDS)(\s|:))]], -- vim regex
 
-        multiline = true, -- enable multine todo comments
-        multiline_pattern = [[^%s*--%s*.{1}]], -- lua regex
+        multiline = false, -- enable multine todo comments
+        -- multiline_pattern = [[%s*--%s*.{1}]], -- lua regex
       },
       colors = {
         error = { '#DC2626' },

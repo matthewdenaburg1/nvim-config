@@ -2,7 +2,7 @@ require('lazy').setup {
   spec = {
     require 'plugins.cmp',
     require 'plugins.conform',
-    require 'plugins.copilot', -- NOTE: wip
+    -- require 'plugins.copilot', -- NOTE: wip
     require 'plugins.gitsigns',
     require 'plugins.lazydev',
     -- require 'plugins.markdown_preview', -- NOTE: wip
