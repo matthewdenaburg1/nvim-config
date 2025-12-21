@@ -1,4 +1,5 @@
 -- Markdown previewer
+-- https://github.com/iamcco/markdown-preview.nvim
 
 return {
   'iamcco/markdown-preview.nvim',

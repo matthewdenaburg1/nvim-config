@@ -4,6 +4,9 @@
 
 local keymap = vim.keymap.set
 
+---@alias options_table table<any, any>
+
+---@type options_table
 local opts = {
   noremap = true,
   silent = true,
@@ -12,7 +15,10 @@ local no_silent = {
   noremap = true,
   silent = false,
 }
-local opts_desc = function(desc, base_opts)
+
+---@param desc string: a description of what the keymap ds
+---@param base_opts? options_table
+local function opts_desc(desc, base_opts)
   base_opts = base_opts or opts
   return vim.tbl_extend('force', base_opts, {
     desc = desc or '',
@@ -22,8 +28,8 @@ end
 ----------- Buffer movement
 -- In Vim, `C-b` and `C-f` scroll by a full page, while `C-u` and `C-d` scroll by half a page.
 -- We want to always scroll by a half page.
-keymap('n', '<C-f>', '<C-d>', {})
-keymap('n', '<C-b>', '<C-u>', {})
+keymap('n', '<C-f>', '<C-d>', opts_desc 'scroll down a half page')
+keymap('n', '<C-b>', '<C-u>', opts_desc 'scroll up a half page')
 
 keymap('n', ']b', [[:bnext<cr>]], opts_desc 'next buffer')
 keymap('n', '[b', [[:bprevious<cr>]], opts_desc 'previous buffer')
@@ -33,31 +39,32 @@ keymap('n', ']Q', [[:cnewer<cr>]], opts_desc 'newer quicklist')
 keymap('n', '[Q', [[:colder<cr>]], opts_desc 'older quicklist')
 keymap('n', ']t', [[:tnext<cr>]], opts_desc 'next tag')
 keymap('n', '[t', [[:tprevious<cr>]], opts_desc 'previous tag')
+
 -- -- open loclist to show the definition matches at current word
 -- -- <C-R> insert text in the register to the command line
 -- -- <C-W> alias for the word under cursor
--- keymap('n', '<Leader>mt', [[:ltag <C-R><C-W> | lopen<cr>]], opts_desc 'misc: tag word to loclist')
+-- keymap('n', 'leader>mt', [[:ltag <C-R><C-W> | lopen<cr>]], opts_desc 'misc: tag word to loclist')
 
--- keymap('n', '<Leader>bd', [[:bd!<CR>]], opts_desc 'buffer delete current one')
--- keymap('n', '<Leader>bw', [[:bw!<CR>]], opts_desc 'buffer wipeout current one')
-keymap('n', '<Leader>bp', [[:bprevious<CR>]], opts_desc 'buffer next')
-keymap('n', '<Leader>bn', [[:bnext<CR>]], opts_desc 'buffer previous')
+-- keymap('n', 'leader>bd', [[:bd!<CR>]], opts_desc 'buffer delete current one')
+-- keymap('n', 'leader>bw', [[:bw!<CR>]], opts_desc 'buffer wipeout current one')
+keymap('n', '<leader>bp', [[:bprevious<CR>]], opts_desc 'buffer next')
+keymap('n', '<leader>bn', [[:bnext<CR>]], opts_desc 'buffer previous')
 
 ----------- Toggle settings
-keymap('n', '<Leader>tw', '<cmd>lua vim.wo.wrap = not vim.wo.wrap<CR>', opts_desc 'toggle wrap')
-keymap('n', '<Leader>tn', '<cmd>lua vim.o.number = not vim.wo.number<CR>', opts_desc 'toggle display linenumber')
-keymap('n', '<Leader>trn', '<cmd>lua vim.o.relativenumber = not vim.wo.number<CR>', opts_desc 'toggle display linenumber')
--- keymap('n', '<Leader>tc', '<cmd>lua vim.wo.conceallevel = vim.wo.conceallevel == 2 and 0 or 2<CR>', opts_desc 'toggle conceal')
--- keymap('n', '<Leader>tH', '<cmd>lua vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0<CR>', opts_desc 'toggle cmdheight')
+keymap('n', '<leader>tw', '<cmd>lua vim.wo.wrap = not vim.wo.wrap<CR>', opts_desc 'toggle wrap')
+keymap('n', '<leader>tn', '<cmd>lua vim.o.number = not vim.wo.number<CR>', opts_desc 'toggle display linenumber')
+keymap('n', '<leader>trn', '<cmd>lua vim.o.relativenumber = not vim.wo.number<CR>', opts_desc 'toggle display linenumber')
+-- keymap('n', 'leader>tc', '<cmd>lua vim.wo.conceallevel = vim.wo.conceallevel == 2 and 0 or 2<CR>', opts_desc 'toggle conceal')
+-- keymap('n', 'leader>tH', '<cmd>lua vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0<CR>', opts_desc 'toggle cmdheight')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
-keymap('n', '<Esc>', '<cmd>nohlsearch<CR>', opts_desc 'clear search highlight')
+keymap('n', '<esc>', '<cmd>nohlsearch<CR>', opts_desc 'clear search highlight')
 
 -- Diagnostic keymaps
 keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-keymap('n', '<Leader>cd.', [[:cd %:h|pwd<cr>]], opts_desc("change CWD to current file's directory", no_silent))
-keymap('n', '<Leader>cd..', [[:cd ..|pwd<cr>]], opts_desc('change CWD to parent directory of current file', no_silent))
+keymap('n', '<leader>cd.', [[:cd %:h|pwd<cr>]], opts_desc("change CWD to current file's directory", no_silent))
+keymap('n', '<leader>cd..', [[:cd ..|pwd<cr>]], opts_desc('change CWD to parent directory of current file', no_silent))
 
 -- Keybinds to make split navigation easier. (Use CTRL+<hjkl> to switch between windows)
 keymap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })

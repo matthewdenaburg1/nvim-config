@@ -1,8 +1,8 @@
--- Autoformatting
+-- Formatting
+-- https://github.com/stevearc/conform.nvim
 
 local by_type = {
   lua = { 'stylua' },
-  sh = { 'shfmt' },
   zsh = { 'shfmt' },
   bash = { 'shfmt' },
   python = { 'black' },
@@ -19,11 +19,6 @@ local by_type = {
   css = { 'prettier' },
   scss = { 'prettier' },
   html = { 'prettier' },
-  -- Conform can also run multiple formatters sequentially
-  -- python = { "isort", "black" },
-  --
-  -- You can use 'stop_after_first' to run the first available formatter from the list
-  -- javascript = { "prettierd", "prettier", stop_after_first = true },
 }
 
 return {

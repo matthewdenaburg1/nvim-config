@@ -34,7 +34,7 @@ local colorscheme = MiniColors.as_colorscheme {
     Special = { fg = '#6495ed' }, -- CornflowerBlue
     Identifier = { fg = '#fa8072' }, -- salmon
     Statement = { fg = '#6495ed' }, -- CornflowerBlue
-    PreProc = { fg = '#ff0000', bg = '#ffffff' }, -- red on white
+    -- PreProc = { fg = '#ff0000', bg = '#ffffff' }, -- red on white
     Include = { fg = '#ff0000' }, -- red
     Operator = { fg = '#ff0000' }, -- Red
     Define = { fg = '#ffd700', bold = true }, -- gold

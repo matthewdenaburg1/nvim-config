@@ -1,4 +1,5 @@
 -- Collection of various small independent plugins/modules
+-- https://github.com/nvim-mini/mini.nvim
 
 return {
   'nvim-mini/mini.nvim',

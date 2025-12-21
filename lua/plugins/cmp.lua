@@ -1,4 +1,5 @@
 -- Completion
+-- https://github.com/hrsh7th/nvim-cmp
 
 -- TODO: see if it's possible to disable line numbers when in command mode
 
@@ -7,7 +8,7 @@ return {
 
   event = {
     'InsertEnter',
-    -- 'CmdlineEnter',
+    'CmdlineEnter',
   },
   dependencies = {
     -- Completion sources
