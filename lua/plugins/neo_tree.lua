@@ -1,4 +1,5 @@
--- https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/lua/neo-tree/defaults.lua
+-- Shows a file explorer sidebar
+-- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 local render_icon = function(config, node, state)
   local icon = config.default or ' '

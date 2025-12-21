@@ -70,4 +70,4 @@ vim.o.confirm = true
 vim.wo.wrap = false
 
 vim.g.mapleader = ' '
-vim.g.localmapleader = ','
+vim.g.maplocalleader = ','

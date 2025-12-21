@@ -1,3 +1,6 @@
+-- Database access
+-- https://github.com/kndndrj/nvim-dbee
+
 -- local creds = function()
 --   local root = 'op://Employee/Database Account/'
 --   local p = root .. 'password'

@@ -1,4 +1,7 @@
-return { -- Main LSP Configuration
+-- LSP
+-- https://github.com/neovim/nvim-lspconfig
+
+return {
   'neovim/nvim-lspconfig',
 
   dependencies = {
@@ -31,7 +34,6 @@ return { -- Main LSP Configuration
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       lua_ls = {},
-      tsgo = {},
 
       -- JSON with JSONC support
       jsonls = {
@@ -59,7 +61,7 @@ return { -- Main LSP Configuration
 
       -- Shell scripting
       bashls = {
-        filetypes = { 'sh', 'zsh', 'bash' },
+        filetypes = { 'zsh', 'bash' },
       },
 
       -- Python
@@ -81,7 +83,12 @@ return { -- Main LSP Configuration
 
       -- JavaScript/TypeScript/React
       ts_ls = {
-        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+        filetypes = {
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+        },
       },
 
       -- CSS/PostCSS
@@ -133,11 +140,11 @@ return { -- Main LSP Configuration
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
-        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<F2>', vim.lsp.buf.rename, '[R]e[n]ame')
 
-        -- Execute a code action, usually your cursor needs to be on top of an error
-        -- or a suggestion from your LSP for this to activate.
-        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        -- -- Execute a code action, usually your cursor needs to be on top of an error
+        -- -- or a suggestion from your LSP for this to activate.
+        -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
         -- Find references for the word under your cursor.
         map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -177,39 +184,11 @@ return { -- Main LSP Configuration
           return client:supports_method(method, bufnr)
         end
 
-        -- The following two autocommands are used to highlight references of the
-        -- word under your cursor when your cursor rests there for a little while.
-        --    See `:help CursorHold` for information about when this is executed
-        --
-        -- When you move your cursor, the highlights will be cleared (the second autocommand).
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-          local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-
-          vim.api.nvim_create_autocmd('LspDetach', {
-            group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-            callback = function(event2)
-              vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-            end,
-          })
-        end
-
         -- The following code creates a keymap to toggle inlay hints in your
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })

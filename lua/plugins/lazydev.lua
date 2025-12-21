@@ -1,4 +1,5 @@
 -- Configure Lua LSP
+-- https://github.com/folke/lazydev.nvim
 
 return { -- Lazydev
   -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
