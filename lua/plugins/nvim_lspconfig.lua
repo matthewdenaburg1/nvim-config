@@ -66,6 +66,7 @@ return {
 
       -- Python
       pyright = {},
+      -- jedi_language_server = {},
 
       -- Rust
       rust_analyzer = {

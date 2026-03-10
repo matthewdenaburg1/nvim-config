@@ -1,6 +1,3 @@
-" File: html.vim
-
-setlocal foldmethod=indent
 setlocal expandtab
 setlocal shiftwidth=2
 setlocal softtabstop=4
