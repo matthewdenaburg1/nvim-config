@@ -13,7 +13,7 @@ return {
     require('mini.pairs').setup()
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
-    require('mini.surround').setup {}
+    require('mini.surround').setup()
 
     require('mini.trailspace').setup()
 
